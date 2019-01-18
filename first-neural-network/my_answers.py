@@ -26,9 +26,9 @@ class NeuralNetwork(object):
         # You can uncomment out the following three lines and put your 
         # implementation there instead.
         #
-        #def sigmoid(x):
-        #    return 0  # Replace 0 with your sigmoid calculation here
-        #self.activation_function = sigmoid
+        def sigmoid(x):
+            return 1 / (1 + np.exp(-x))  # Replace 0 with your sigmoid calculation here
+        self.activation_function = sigmoid
                     
 
     def train(self, features, targets):
@@ -64,12 +64,12 @@ class NeuralNetwork(object):
         #### Implement the forward pass here ####
         ### Forward pass ###
         # TODO: Hidden layer - Replace these values with your calculations.
-        hidden_inputs = None # signals into hidden layer
-        hidden_outputs = None # signals from hidden layer
+        hidden_inputs = delta_weights_i_h*X # signals into hidden layer
+        hidden_outputs = sigmoid(hidden_inputs) # signals from hidden layer
 
         # TODO: Output layer - Replace these values with your calculations.
-        final_inputs = None # signals into final output layer
-        final_outputs = None # signals from final output layer
+        final_inputs = delta_weights_h_o*hidden_outputs # signals into final output layer
+        final_outputs = sigmoid(final_inputs) # signals from final output layer
         
         return final_outputs, hidden_outputs
 
@@ -88,7 +88,7 @@ class NeuralNetwork(object):
         ### Backward pass ###
 
         # TODO: Output error - Replace this value with your calculations.
-        error = None # Output layer error is the difference between desired target and actual output.
+        error = y-final_outputs # Output layer error is the difference between desired target and actual output.
         
         # TODO: Calculate the hidden layer's contribution to the error
         hidden_error = None
